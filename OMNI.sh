@@ -7,7 +7,7 @@ mkdir -p twrp
 cd twrp
 
 # Membaca file input
-source ${current_directory}/input.txt
+source ${current_directory}/setting.txt
 
 echo "Manifest Omni branch: ${Manifest_branch}"
 
@@ -50,6 +50,5 @@ output_file="../../../out/target/product/${Device_Name}/${Build_Target}.img"
 cp -r ${output_file} ${current_directory}
 
 # Upload ke Telegram
-bot_token="YOUR_BOT_TOKEN_HERE"
-chat_id="YOUR_CHAT_ID_HERE"
+
 curl -F chat_id=${chat_id} -F document=@${output_file} "https://api.telegram.org/bot${bot_token}/sendDocument"
