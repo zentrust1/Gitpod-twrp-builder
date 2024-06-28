@@ -9,16 +9,13 @@ cd twrp
 # Membaca file input
 source ${current_directory}/setting.txt
 
-echo "Manifest Omni branch: ${Manifest_branch}"
+echo "Manifest URL: ${manifest_url}"
+echo "Manifest branch: ${manifest_branch}"
 
 echo "Link Device tree twrp: ${Device_tree}"
-
 echo "Branch Device tree twrp: ${Branch_dt_twrp}"
-
 echo "Device Path: ${Device_Path}"
-
 echo "Device Name: ${Device_Name}"
-
 echo "Build Target (recovery, boot): ${Build_Target}"
 
 # Instalasi dependensi
@@ -31,13 +28,13 @@ git config --global user.name "Massatrio16"
 git config --global user.email "dimassetosatrio@gmail.com"
 
 # Inisialisasi repo dan sinkronisasi
-repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
+repo init --depth=1 -u ${manifest_url} -b ${manifest_branch}
 repo sync
 
 # Klon device tree
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 
-# Membangun TWRP
+# Membangun recovery
 sleep 2
 export ALLOW_MISSING_DEPENDENCIES=true
 source build/envsetup.sh
@@ -50,5 +47,4 @@ output_file="../../../out/target/product/${Device_Name}/${Build_Target}.img"
 cp -r ${output_file} ${current_directory}
 
 # Upload ke Telegram
-
 curl -F chat_id=${chat_id} -F document=@${output_file} "https://api.telegram.org/bot${bot_token}/sendDocument"
