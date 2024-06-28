@@ -7,17 +7,69 @@ current_directory=$(pwd)
 mkdir -p /workspace/twrp
 cd /workspace/twrp
 
+# Fungsi untuk menampilkan pesan kesalahan dan memberi opsi untuk memperbaiki
+handle_error() {
+    local var_name=$1
+
+    echo "Error: ${var_name} tidak diatur dengan benar dalam setting.txt"
+    echo -n "Apakah Anda ingin memperbaiki ${var_name}? (y/n): "
+    read answer
+
+    if [ "${answer}" == "y" ]; then
+        echo -n "Masukkan nilai baru untuk ${var_name}: "
+        read new_value
+        sed -i "s/^${var_name}=.*/${var_name}=${new_value}/" ${current_directory}/setting.txt
+        echo "${var_name} diperbarui menjadi: ${new_value}"
+    else
+        echo "${var_name} tidak diubah."
+    fi
+}
+
 # Baca file setting.txt
 source ${current_directory}/setting.txt
 
-# Tampilkan informasi dari setting.txt
-echo "Manifest URL: ${manifest_url}"
-echo "Manifest branch: ${manifest_branch}"
-echo "Link Device tree twrp: ${Device_tree}"
-echo "Branch Device tree twrp: ${Branch_dt_twrp}"
-echo "Device Path: ${Device_Path}"
-echo "Device Name: ${Device_Name}"
-echo "Build Target (recovery, boot): ${Build_Target}"
+# Periksa dan tanyakan untuk mengubah nilai setiap variabel
+if [ -z "${manifest_url}" ]; then
+    handle_error "manifest_url"
+fi
+
+if [ -z "${manifest_branch}" ]; then
+    handle_error "manifest_branch"
+fi
+
+if [ -z "${Device_tree}" ]; then
+    handle_error "Device_tree"
+fi
+
+if [ -z "${Branch_dt_twrp}" ]; then
+    handle_error "Branch_dt_twrp"
+fi
+
+if [ -z "${Device_Path}" ]; then
+    handle_error "Device_Path"
+fi
+
+if [ -z "${Device_Name}" ]; then
+    handle_error "Device_Name"
+fi
+
+if [ -z "${Build_Target}" ]; then
+    handle_error "Build_Target"
+fi
+
+if [ -z "${chat_id}" ]; then
+    handle_error "chat_id"
+fi
+
+if [ -z "${bot_token}" ]; then
+    handle_error "bot_token"
+fi
+
+# Lanjutkan dengan skrip setelah memperbarui setting.txt
+echo "Melanjutkan dengan build TWRP..."
+
+# Setel penanganan kesalahan untuk menampilkan pesan dan memberikan opsi kepada pengguna
+trap 'echo "Terjadi kesalahan saat menjalankan skrip, periksa log untuk detailnya."' ERR
 
 # Instalasi dependensi yang diperlukan
 apt update
@@ -41,6 +93,12 @@ git config --global user.email "dimassetosatrio@gmail.com"
 # Inisialisasi repo dan sinkronisasi
 repo init --depth=1 -u ${manifest_url} -b ${manifest_branch}
 repo sync
+
+# Periksa keberadaan variabel yang diperlukan
+if [ -z "${Device_Path}" ]; then
+    echo "Error: Device_Path tidak diatur dengan benar dalam setting.txt"
+    exit 1
+fi
 
 # Klon device tree twrp
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
