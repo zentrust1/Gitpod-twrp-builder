@@ -1,0 +1,8 @@
+Manifest_branch=9.0
+Device_tree=https://github.com/yourdevice/android_device_your_device_codename
+Branch_dt_twrp=twrp
+Device_Path=device/your_device_codename
+Device_Name=your_device_codename
+Build_Target=recovery
+TG_BOT=
+ID_CHAT=
