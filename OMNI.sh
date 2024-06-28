@@ -95,10 +95,10 @@ repo init --depth=1 -u ${manifest_url} -b ${manifest_branch}
 repo sync
 
 # Periksa keberadaan variabel yang diperlukan
-if [ -z "${Device_Path}" ]; then
-    echo "Error: Device_Path tidak diatur dengan benar dalam setting.txt"
-    exit 1
-fi
+#if [ -z "${Device_Path}" ]; then
+#    echo "Error: Device_Path tidak diatur dengan benar dalam setting.txt"
+    #exit 1
+#fi
 
 # Klon device tree twrp
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
