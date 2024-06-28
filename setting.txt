@@ -4,5 +4,5 @@ Branch_dt_twrp=twrp
 Device_Path=device/your_device_codename
 Device_Name=your_device_codename
 Build_Target=recovery
-TG_BOT=
-ID_CHAT=
+TG_BOT=7238716485:AAF4zBW6ThIH_Z-7B5FEpCIB--GxUjEIEmQ
+ID_CHAT=-1001521017936
