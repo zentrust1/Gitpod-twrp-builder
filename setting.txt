@@ -1,9 +1,9 @@
 manifest_url=https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp
-Manifest_branch=9.0
-Device_tree=https://github.com/yourdevice/android_device_your_device_codename
-Branch_dt_twrp=twrp
-Device_Path=device/your_device_codename
-Device_Name=your_device_codename
+Manifest_branch=twrp-11
+Device_tree=https://github.com/zentrust1/X657B_Twrp
+Branch_dt_twrp=android-11'
+Device_Path=device/infinix/X657B
+Device_Name=X657B
 Build_Target=recovery
 TG_BOT=7238716485:AAF4zBW6ThIH_Z-7B5FEpCIB--GxUjEIEmQ
 ID_CHAT=-1001521017936
