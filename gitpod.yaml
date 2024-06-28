@@ -1,0 +1,8 @@
+image:
+  file: Dockerfile
+
+tasks:
+  - name: Setup Environment
+    init: |
+      cp /workspace/input.txt /workspace
+      chmod +x OMNI.sh
